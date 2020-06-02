@@ -11,21 +11,22 @@
 #Пользователь ввел число 1. Результат: 7, 5, 3, 3, 2, 1.
 #Набор натуральных чисел можно задать непосредственно в коде, например, my_list = [7, 5, 3, 3, 2].
 
+#Version 2
 
 lst = [7, 5, 3, 3, 2]
-print(lst)
+print("Набор натуральных чисел по условию: ", lst)
 number = int(input("Введите число, например 3 или 8 или 1:   "))
-for elem in range(len(lst)):
-    if lst[elem] == number:
-        lst.insert(elem + 1, number)
+c = lst.count(number)
+for element in lst:
+    if c > 0:
+        i = lst.index(number)
+        lst.insert(i+c, float(number)) #float для проверки
         break
-    elif lst[0] < number:
-        lst.insert(0, number)
-        break
-    elif lst[-1] > number:
-        lst.append(number)
-        break
-    elif lst[elem] > number and lst[elem + 1] < number:
-        lst.insert(elem + 1, number)
-        break
+    else:
+        if number > element:
+            j = lst.index(element)
+            lst.insert(j, number)
+            break
+        elif number < lst[len(lst) - 1]:
+            lst.append(number)
 print(lst)
