@@ -12,10 +12,14 @@ def my_func(x, y):
 print(my_func(float(input('Вариант 1-й с ** \nВведите число:  ')), int(input('введите степень (-):  '))))
 
 
-
+# -2, -4 для проверки
 def my_func2(x, y):
-    for i in range(abs(y - 1)):
-        x *= x
-        return 1 / x
+    if y == 0:
+        return 1
+    else:
+        return 1 / x * my_func2(x, y - 1)
 
-print(my_func2(float(input('Вариант 2-й без ** \nВведите число:  ')), int(input('введите степень (-):  '))))
+a = int(input('Вариант 2-й без ** \nВведите число:  '))
+b = abs(int(input('введите степень (-):  ')))
+
+print(f'{abs(a)}^(-{b}) = {my_func2(a, b)}')
