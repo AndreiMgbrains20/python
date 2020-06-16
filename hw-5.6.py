@@ -1,5 +1,5 @@
 '''
-Vers. 1
+Vers. 2
 HomeWork 5.6 (hw-5.1.py, hm-5.2.py, ..., hw-5.7.py)
 
 6. Необходимо создать (не программно) текстовый файл, где каждая строка описывает учебный предмет и наличие лекционных,
@@ -15,9 +15,7 @@ HomeWork 5.6 (hw-5.1.py, hm-5.2.py, ..., hw-5.7.py)
 
 '''
 
-
 filename = 'text_6.txt'
-
 '''
 Fizra: - 30(пр) -
 Math: 10(л) 50(пр) -
@@ -27,22 +25,15 @@ Informatics: 40(л) 12(пр) 20(лаб)
 Literature: 10(л) - 8(лаб)
 Russian: - - 90(лаб)
 '''
-
-#filenew = 'text_6new.txt'
-
-rus = {'Fizra': 'Физкультура', 'Math': 'Математика', 'History': 'История', 'Physics': 'Физика', 'Informatics': 'Информатика', 'Literature': 'Литература', 'Russian': 'Русский язык'}
-#new_file = []
-#sub = {}
-
+#rus = {'Fizra': 'Физкультура', 'Math': 'Математика', 'History': 'История', 'Physics': 'Физика', 'Informatics': 'Информатика', 'Literature': 'Литература', 'Russian': 'Русский язык'}
 
 try:
     with open(filename, 'r', encoding='utf-8') as f:
-        print(f'Содержимое файла {filename}')
-        for line in f:
-            subject, lecture, practice, lab = line.split()
-            print(f'   Предмет: {subject} Занятия: лекционное {lecture} практическое {practice} и лабораторное {lab}')
-            #sub[subject] = int(lecture) + int(practice) + int(lab)
-#        print(f'Общее количество часов по предмету - \n {sub}')
+        a = f.readlines()
+        for s in a:
+            new_str = ''.join((i if i in '0123456789' else ' ') for i in s)  #найти в строке все числа
+            new2 = [int(i) for i in new_str.split()]
+            print(f' Предмет {s.split()[0]} сумма баллов {sum(new2)}')
 
 except FileNotFoundError:
     print(f'Error. Невозможно создать или открыть файл')
