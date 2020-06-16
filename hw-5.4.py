@@ -1,5 +1,5 @@
 '''
-Vers. 1
+Vers. 2
 HomeWork 5.4 (hw-5.1.py, hm-5.2.py, ..., hw-5.7.py)
 
 Создать (не программно) текстовый файл со следующим содержимым:
@@ -13,10 +13,14 @@ Four — 4
 Новый блок строк должен записываться в новый текстовый файл.
 '''
 
+# Google to translate ...
 '''
+$ pip3 install googletrans (don't forget to install)
+from googletrans import Translator
+...Translator().translate(text, dest='ru').text
+
 YANDEX
-$ python3
->>> pip install requests
+$ pip3 install requests (don't forget to install)
 >>> eng_text = 'text for translate'
 >>> token = <Yandex-API-key>
 >>> url_trans = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
@@ -30,8 +34,7 @@ $ python3
 'текст для перевода'
 '''
 
-#import requests
-
+# Vers.1
 fileold = 'text_4.txt'
 '''
 One - 1
@@ -39,10 +42,8 @@ Two - 2
 Three - 3
 Four - 4
 '''
-
-
 filenew = 'text_4new.txt'
-# Yandex API ...
+
 rus = {'One': 'Один', 'Two': 'Два', 'Three': 'Три', 'Four': 'Четыре'}
 new_file = []
 try:
@@ -54,6 +55,31 @@ try:
 
     with open(filenew, 'w+', encoding='utf-8') as f:
         f.writelines(new_file)
+
+except FileNotFoundError:
+    print(f'Error. Невозможно создать или открыть файл')
+
+
+# Vers. 2
+# Google to translate ...
+
+from googletrans import Translator
+
+fileold = 'text_4.txt'
+'''
+One - 1
+Two - 2
+Three - 3
+Four - 4
+'''
+filetotranslate = 'text_4_translate.txt'
+
+try:
+    with open(filetotranslate, 'w', encoding='utf-8') as f:
+        with open(fileold, 'r', encoding='utf-8') as f1:
+            text = f1.read()
+        f.write(Translator().translate(text, dest='ru').text)
+        print(f'Translated... in file {filetotranslate}')
 
 except FileNotFoundError:
     print(f'Error. Невозможно создать или открыть файл')
