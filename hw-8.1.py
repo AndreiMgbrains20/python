@@ -26,34 +26,35 @@ class DataClass:
             if i != '-': my_date.append(i)
         return int(my_date[0]), int(my_date[1]), int(my_date[2])
 
-    @staticmethod
+@staticmethod
     def valid(day, month, year):
         try:
-            #day_pruf = datetime(2020, 2, 30)
-            if 1 <= day <= 31:
-                if 1 <= month <= 12:
-                    if 2020 >= year >= 0:
+            if 1 <= month <= 12:
+                if 2020 >= year >= 0:
+                    if 1 <= day <= 31 and datetime(year, month, day) == True:   #February 30 ...
                         return f'Все верно'
                     else:
-                        return f'Неправильный год'
+                        return f'Неверный день'
                 else:
-                    return f'Неправильный месяц'
+                    return f'Неверный год'
             else:
-                return f'Неправильный день'
+                return f'Неверный месяц'
         except ValueError:
-            return (f'Такого дня не существует в этом месяце в указанном году')
+            return (f'Неверный формат ввода даты')
 
     def __str__(self):
         return f'Текущая дата {DataClass.extract(self.day_month_year)}'
 
 now = datetime.now()
-print(now.strftime('form datetime.now() --> %d - %m - %Y'))
-today = DataClass('22 - 6 - 2020')
-print(today)
+print(now.strftime('Сегодня (день, дата, время - local time): %A, %d. %B %Y %I:%M%p'))
+now_str = now.strftime('%d - %m - %Y')
+print('Сегодня:  ', now_str)
+my_today = DataClass(now_str)
+print(my_today)
 print('valid (11, 11, 2022) : ', DataClass.valid(11, 11, 2022))
 print('valid (11, 13, 2020) : ', DataClass.valid(11, 13, 2020))
 print('valid (33, 12, 2020) : ', DataClass.valid(33, 12, 2020))
-print('valid (30, 2, 2020) : ', DataClass.valid(20, 2, 2020))
-print('valid today (21, 6, 2020) : ', today.valid(21, 6, 2020))
+print('valid (30, 2, 2020)  : ', DataClass.valid(20, 2, 2020))
+print('valid today (21, 6, 2020) : ', my_today.valid(21, 6, 2020))
 print('DataClass extract (12 - 10 - 2018) : ', DataClass.extract('12 - 10 - 2018'))
-print('today extract', today.extract('11 - 11 - 2020'))
+print('today extract', my_today.extract('11 - 11 - 2020'))
