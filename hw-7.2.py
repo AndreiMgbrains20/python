@@ -1,5 +1,5 @@
 '''
-Version 1
+Version 2
 HomeWork 7.2 (hw-7.1.py, ..., hw-7.3.py)
 
 
@@ -16,7 +16,65 @@ HomeWork 7.2 (hw-7.1.py, ..., hw-7.3.py)
 реализовать абстрактные классы для основных классов проекта, проверить на практике работу декоратора @property.
 
 '''
+#Vers.2
 
+#abstact
+
+from abc import ABC, abstractmethod
+
+class MyAbstractClass(ABC):   #constructor
+    @abstractmethod
+    def consum(self):
+        pass
+
+class Clothes(MyAbstractClass):
+    def __init__(self, par='MyAbstractClass'):
+        self.par = par
+        print('------- class Clothes  ', par)
+
+    @property
+    def consum_Coat(self, par):
+        pass
+
+    @property
+    def consum_Suite(self, par):
+        pass
+
+    @property
+    def consum(self):
+        print('------- consum')
+        return round(self.consum_Coat + self.consum_Suite, 2)
+
+class Coat(Clothes):
+    @property
+    def consum(self):
+        res = round(self.par / 6.5 + 0.5, 2)
+        Clothes.consum_Coat = res
+        return f' Необходимо ткани на пальто - {self.par}, размером - {res}'
+
+class Suite(Clothes):
+    @property
+    def consum(self):
+        res = round(self.par * 2 + 0.3, 2)   #костюм без подкладки, обычный - *2. С покладкой - *4.9
+        Clothes.consum_Suite = res
+        return f' Необходимо ткани на костюм - {self.par}, размером - {res}'
+
+#на пальто - 1,5м ширина ткани (рулон). 4м длина ткани на рост - высокий. Размер 56. XXL.
+#на костюм - 1.брюки 1,5м ширина ткани (рулон). 1,9м длина ткани и 2.Жакет 0,9м ширина и 4,2м длина ткани (без прокладки) на рост - высокий
+#предусматриваем на костюм, всего - 1,5м ширина рулона и 4м длина (1,9 + 2,1). Размер 56. XXL.
+
+o = Clothes()
+c = Coat(56) #размер - рост до 180см, охват талии/груди - до 120. Размер 56 (XXL)
+print(c.consum)
+s = Suite(3) #размер - рост до 180см, охват талии/груди - до 120 (XXL) = 1.8+1.2 = 3
+print(s.consum)
+print(f' Расход ткани всего = {o.consum}')
+
+
+
+
+'''
+Vers.1
 
 class Clothes:
     def __init__(self, v, h):
@@ -47,12 +105,12 @@ class Suite(Clothes):
         self.sq_s = self.h * 2 + 0.3
 
     def __str__(self):
-        return f' пл. ткани на костюм:  {self.sq_s}'
+        return f' пл. ткани на кастюм:  {self.sq_s}'
 
 #на польто - 1,5м ширина ткани (рулон). 4м длина ткани на рост - высокий
 coat = Coat(1.5, 4)
 
-#на костюм - 1.брюки 1,5м ширина ткани (рулон). 1,9м длина ткани и 2.Жакет 0,9м ширина и 4,2м длина ткани (без прокладки) на рост - высокий
+#на кастюм - 1.брюки 1,5м ширина ткани (рулон). 1,9м длина ткани и 2.Жакет 0,9м ширина и 4,2м длина ткани (без прокладки) на рост - высокий
 #предусматриваем жакет с прокладкой, всего - 1,5м ширина рулона и 6,1м длина (1,9 + 4,2)
 suite = Suite(1.5, 6.1)
 
@@ -63,3 +121,4 @@ print(' coat... property sq tot', coat.get_sq_full)
 print(' Suite через class', suite)
 print(' suite через class child', suite.get_sq_s())
 print(' suite... property sq tot', suite.get_sq_full)
+'''
